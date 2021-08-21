@@ -14,7 +14,7 @@ for (const postfix of ["_public", "_our"]) {
   const dataset_valid = [];
   const dataset_valid_json = [];
 
-  for (const story of stories.slice(0, MAX_NEWS_PER_STORY)) {
+  for (const story of stories) {
     const is_valid = postfix == "_public" && rng() > TRAIN_SIZE ? true : false;
     if (is_valid) {
       dataset_valid_json.push(story);
@@ -23,7 +23,7 @@ for (const postfix of ["_public", "_our"]) {
     let slugsSet = new Set();
     const storyTitle = story.title;
     const news = story.news;
-    for (const n of news) {
+    for (const n of news.slice(0, MAX_NEWS_PER_STORY)) {
       let body = n.body;
       let headline = n.headline || n.title;
       if (headline) {
