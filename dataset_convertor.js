@@ -80,7 +80,8 @@ for (const postfix of ["_public", "_our"]) {
   if (dataset_valid_json.length > 0) {
     fs.writeFileSync(
       `./datasets/dataset_valid.json`,
-      JSON.stringify(dataset_valid_json, null, 2)
+      JSON.stringify(dataset_valid_json)
     );
   }
 }
+
