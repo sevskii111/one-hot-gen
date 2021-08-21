@@ -41,7 +41,7 @@ for (const postfix of ["_public", "_our"]) {
         }
       }
 
-      if (n.codes && n.codes.indexOf("920020000000000000") == -1) {
+      if (n.codes && n.codes.indexOf("920020000000000000") != -1) {
         body = headline;
       }
 
