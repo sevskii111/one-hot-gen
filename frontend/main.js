@@ -8237,8 +8237,10 @@ const exampleInput = [
   },
 ];
 
-async function handleUpload(json) {
-  const stories = json;
+async function handleUpload(stories) {
+  for (const story_ind in stories) {
+    stories[story_ind].title = "" + story_ind;
+  }
 
   const dataset = [];
 
@@ -8308,7 +8310,19 @@ async function handleUpload(json) {
   }
 }
 
-function handleFile() {}
+function onChange(event) {
+  var reader = new FileReader();
+  reader.onload = onReaderLoad;
+  reader.readAsText(event.target.files[0]);
+}
+
+function onReaderLoad(event) {
+  handleUpload(JSON.parse(event.target.result));
+}
+
+document
+  .querySelector("input[type='file']")
+  .addEventListener("change", onChange);
 
 function handleExample() {
   handleUpload(exampleInput);
