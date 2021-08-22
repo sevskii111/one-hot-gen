@@ -8310,7 +8310,7 @@ async function handleUpload(stories) {
     storyEl.classList.add("story", "list-group", "mt-2");
     const predEl = document.createElement("div");
     predEl.innerText = story.title;
-    predEl.classList.add("list-group-item", "active", "text-center");
+    predEl.classList.add("list-group-item", "active", "text-center", "bg-warning");
     storyEl.appendChild(predEl);
     for (const n of story.news) {
       const headlineEl = document.createElement("div");
