@@ -8282,19 +8282,28 @@ async function handleUpload(stories) {
     }
   }
 
-  const response = await fetch("/get_preds", {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    mode: "cors", // no-cors, *cors, same-origin
-    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: "same-origin", // include, *same-origin, omit
-    redirect: "follow", // manual, *follow, error
-    referrerPolicy: "no-referrer", // no-referrer, *client
-    headers: {
-      "Content-Type": "application/json",
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: JSON.stringify(dataset), // body data type must match "Content-Type" header
-  }).then((res) => res.json());
+  document.querySelector(".form").classList.add("d-none");
+
+  try {
+    const response = await fetch("/get_preds", {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *client
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(dataset), // body data type must match "Content-Type" header
+    }).then((res) => res.json());
+  } catch (e) {
+    alert(
+      "Не удалось считать файл, вероятно его формат отличается от dataset_public.json"
+    );
+    document.querySelector(".form").classList.add("d-none");
+  }
 
   const { story_id, story_name } = response;
   for (const i in story_id) {
@@ -8310,7 +8319,13 @@ async function handleUpload(stories) {
     storyEl.classList.add("story", "list-group", "mt-2");
     const predEl = document.createElement("div");
     predEl.innerText = story.title;
-    predEl.classList.add("list-group-item", "active", "text-center", "bg-warning");
+    predEl.classList.add(
+      "list-group-item",
+      "active",
+      "text-center",
+      "bg-warning",
+      "border-warning"
+    );
     storyEl.appendChild(predEl);
     for (const n of story.news) {
       const headlineEl = document.createElement("div");
