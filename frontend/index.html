@@ -8682,6 +8682,18 @@
           },
           body: JSON.stringify(dataset), // body data type must match "Content-Type" header
         });
+
+        const { story_id, story_name } = response;
+        for (const i in story_id) {
+          for (const story of stories) {
+            if (story.title == story_id[i]) {
+              story.title = story_name[i];
+            }
+          }
+        }
+        for (const story of stories) {
+          console.log(story.title);
+        }
       }
 
       function handleFile() {}
