@@ -8676,6 +8676,10 @@
           credentials: "same-origin", // include, *same-origin, omit
           redirect: "follow", // manual, *follow, error
           referrerPolicy: "no-referrer", // no-referrer, *client
+          headers: {
+            "Content-Type": "application/json",
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
           body: JSON.stringify(dataset), // body data type must match "Content-Type" header
         });
       }
