@@ -8306,7 +8306,18 @@ async function handleUpload(stories) {
   }
 
   for (const story of stories) {
-    console.log(story.title);
+    const storyEl = document.createElement("div");
+    storyEl.className.add("story list-group");
+    const predEl = document.createElement("div");
+    predEl.innerText = story.title;
+    predEl.classList.add("list-group-item", "active", "text-center");
+    for (const n of story.news) {
+      if (n.headline) {
+        const headlineEl = document.createElement("div");
+        headlineEl.innerText = n.headline;
+        headlineEl.classList.add("list-group-item", "active", "text-center");
+      }
+    }
   }
 }
 
