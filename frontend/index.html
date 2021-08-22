@@ -371,7 +371,6 @@
         </form>
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/json2csv"></script>
     <script>
       const exampleInput = [
         {
@@ -8670,11 +8669,6 @@
           }
         }
 
-        const fields = ["X", "y"];
-        const opts = { fields };
-        const { Parser } = json2csv;
-        const parser = new Parser(opts);
-        const result = parser.parse(dataset);
         const response = await fetch("/get_preds", {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
           mode: "cors", // no-cors, *cors, same-origin
@@ -8682,7 +8676,7 @@
           credentials: "same-origin", // include, *same-origin, omit
           redirect: "follow", // manual, *follow, error
           referrerPolicy: "no-referrer", // no-referrer, *client
-          body: result, // body data type must match "Content-Type" header
+          body: JSON.stringify(dataset), // body data type must match "Content-Type" header
         });
       }
 
