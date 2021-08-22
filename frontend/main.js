@@ -8237,25 +8237,25 @@ const exampleInput = [
   },
 ];
 
+function download(filename, text) {
+  var element = document.createElement("a");
+  element.setAttribute(
+    "href",
+    "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+  );
+  element.setAttribute("download", filename);
+
+  element.style.display = "none";
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
 async function handleUpload(stories) {
   for (const story_ind in stories) {
     stories[story_ind].title = "" + story_ind;
-  }
-
-  function download(filename, text) {
-    var element = document.createElement("a");
-    element.setAttribute(
-      "href",
-      "data:text/plain;charset=utf-8," + encodeURIComponent(text)
-    );
-    element.setAttribute("download", filename);
-
-    element.style.display = "none";
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
   }
 
   const dataset = [];
