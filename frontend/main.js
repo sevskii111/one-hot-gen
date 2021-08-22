@@ -8299,9 +8299,11 @@ async function handleUpload(stories) {
   }
 
   document.querySelector("form").classList.add("d-none");
+  document.querySelector(".loading").classList.remove("d-none");
 
+  let response;
   try {
-    const response = await fetch("/get_preds", {
+    response = await fetch("/get_preds", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -8318,9 +8320,12 @@ async function handleUpload(stories) {
     alert(
       "Не удалось считать файл, вероятно его формат отличается от dataset_public.json"
     );
+    document.querySelector(".loading").classList.add("d-none");
     document.querySelector("form").classList.add("d-none");
+    return;
   }
 
+  document.querySelector(".loading").classList.add("d-none");
   document.querySelector(".download").classList.remove("d-none");
 
   const { story_id, story_name } = response;
