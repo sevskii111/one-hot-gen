@@ -8307,7 +8307,7 @@ async function handleUpload(stories) {
 
   for (const story of stories) {
     const storyEl = document.createElement("div");
-    storyEl.className.add("story list-group");
+    storyEl.classList.add("story list-group");
     const predEl = document.createElement("div");
     predEl.innerText = story.title;
     predEl.classList.add("list-group-item", "active", "text-center");
