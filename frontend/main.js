@@ -8242,6 +8242,22 @@ async function handleUpload(stories) {
     stories[story_ind].title = "" + story_ind;
   }
 
+  function download(filename, text) {
+    var element = document.createElement("a");
+    element.setAttribute(
+      "href",
+      "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+    );
+    element.setAttribute("download", filename);
+
+    element.style.display = "none";
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  }
+
   const dataset = [];
 
   for (const story of stories) {
@@ -8282,7 +8298,7 @@ async function handleUpload(stories) {
     }
   }
 
-  document.querySelector(".form").classList.add("d-none");
+  document.querySelector("form").classList.add("d-none");
 
   try {
     const response = await fetch("/get_preds", {
@@ -8302,8 +8318,10 @@ async function handleUpload(stories) {
     alert(
       "Не удалось считать файл, вероятно его формат отличается от dataset_public.json"
     );
-    document.querySelector(".form").classList.add("d-none");
+    document.querySelector("form").classList.add("d-none");
   }
+
+  document.querySelector(".download").classList.remove("d-none");
 
   const { story_id, story_name } = response;
   for (const i in story_id) {
@@ -8336,6 +8354,12 @@ async function handleUpload(stories) {
     document.querySelector(".result").appendChild(storyEl);
   }
 }
+
+document
+  .querySelector(".download")
+  .addEventListener("click", () =>
+    download("result.json", JSON.stringify(stories, null, 2))
+  );
 
 function onChange(event) {
   var reader = new FileReader();
