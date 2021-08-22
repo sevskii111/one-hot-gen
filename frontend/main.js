@@ -8307,17 +8307,18 @@ async function handleUpload(stories) {
 
   for (const story of stories) {
     const storyEl = document.createElement("div");
-    storyEl.classList.add("story list-group");
+    storyEl.classList.add("story", "list-group", "mt-2");
     const predEl = document.createElement("div");
     predEl.innerText = story.title;
     predEl.classList.add("list-group-item", "active", "text-center");
+    storyEl.appendChild(predEl);
     for (const n of story.news) {
-      if (n.headline) {
-        const headlineEl = document.createElement("div");
-        headlineEl.innerText = n.headline;
-        headlineEl.classList.add("list-group-item", "active", "text-center");
-      }
+      const headlineEl = document.createElement("div");
+      headlineEl.innerText = n.headline || n.body;
+      headlineEl.classList.add("list-group-item", "text-center");
+      storyEl.appendChild(headlineEl);
     }
+    document.querySelector(".result").appendChild(storyEl);
   }
 }
 
